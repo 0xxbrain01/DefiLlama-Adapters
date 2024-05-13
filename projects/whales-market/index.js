@@ -44,6 +44,7 @@ const insuranceConfig = {
       }
 }
 
+
 module.exports = {
       ethereum: { tvl: sumTokensExport(insuranceConfig.ethereum)},
       arbitrum: { tvl: sumTokensExport(insuranceConfig.arbitrum)},
