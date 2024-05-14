@@ -1,5 +1,6 @@
 const ADDRESSES = require('../helper/coreAssets.json');
-const { sumTokensExport } = require('../helper/unwrapLPs')
+const {  sumTokens2 } = require("../helper/solana");
+const { sumTokensExport  } = require('../helper/sumTokens')
 
 const insuranceConfig = {
       ethereum: {
@@ -41,9 +42,24 @@ const insuranceConfig = {
       mode: {
         owner: '0x7a560269480Ef38B885526C8bBecdc4686d8bF7A',
         tokens: [ADDRESSES.null],
-      }
+      },
+      solana: {
+        owner: 'GDsMbTq82sYcxPRLdQ9RHL9ZLY3HNVpXjXtCnyxpb2rQ',
+        tokens: [ 
+            ADDRESSES.solana.USDC,
+            ADDRESSES.solana.SOL,
+            ADDRESSES.solana.USDT,
+            'J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn'// jito SOL
+            ],
+      },
+      
 }
 
+async function tvl() {
+      return sumTokens2({ owner: insuranceConfig.solana.owner, tokens: 
+            insuranceConfig.solana.tokens
+      });
+}
 
 module.exports = {
       ethereum: { tvl: sumTokensExport(insuranceConfig.ethereum)},
@@ -55,4 +71,6 @@ module.exports = {
       bsc: { tvl:  sumTokensExport(insuranceConfig.bsc) },
       linea: { tvl:  sumTokensExport(insuranceConfig.linea) },
       mode: { tvl: sumTokensExport(insuranceConfig.mode) },
+      solana: { tvl },
+      starknet: { tvl: sumTokensExport(insuranceConfig.starknet)},
 };
